@@ -1,6 +1,3 @@
-// HW5_A1014114.cpp : 定義主控台應用程式的進入點。
-//
-
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
@@ -45,7 +42,8 @@ void build(int capacity,char order[]) {
 	for (int i = 0; i < 2 * capacity-1; i++) {
 		TreeList[i] = new node;
 	}
-	for (int i = capacity-1; i >= 0; i--) {                  /*Construct TreeList*/
+	/*Construct TreeList*/
+	for (int i = capacity-1; i >= 0; i--) {                  
 		input >> TreeList[i]->word;
 		input >> TreeList[i]->frequency;
 		TreeList[i]->use = 0;
@@ -63,8 +61,9 @@ void huff(int capacity) {
 	int min = -1, s_min= -1;
 	int min_f = 99, s_min_f = 100;
 	int boundary = capacity;
+	/*Find the minimun number*/
 	for (int i = capacity; i < 2 * capacity-1; i++) {
-		for (int j = 0; j < boundary ; j++) {                  /*Find the minimun number*/
+		for (int j = 0; j < boundary ; j++) {                  
 			if (TreeList[j]->use == 0)
 				if (min_f > TreeList[j]->frequency) {
 					min = j;
@@ -72,7 +71,8 @@ void huff(int capacity) {
 				}
 		}
 		TreeList[min]->use = 1;
-		for (int j = 0; j < boundary; j++) {                    /*Find the second minimun number*/
+		/*Find the second minimun number*/
+		for (int j = 0; j < boundary; j++) {                    
 			if (TreeList[j]->use == 0)
 				if (s_min_f > TreeList[j]->frequency) {
 					s_min = j;
@@ -83,8 +83,9 @@ void huff(int capacity) {
 
 		if ((min < capacity) && (s_min >= capacity))
 			swap(min, s_min);
-
-		TreeList[i]->frequency = TreeList[s_min]->frequency + TreeList[min]->frequency;  /*Get parent node*/
+		
+		 /*Get parent node*/
+		TreeList[i]->frequency = TreeList[s_min]->frequency + TreeList[min]->frequency; 
 		TreeList[i]->Rptr = TreeList[min];
 		TreeList[i]->Lptr = TreeList[s_min];
 		TreeList[i]->use = 0;
@@ -94,7 +95,8 @@ void huff(int capacity) {
 	}
 }
 
-void getcode(struct node* root, char c, string code) {                 /*Use recursive to traverse Huffman Tree*/
+/*Use recursive to traverse Huffman Tree*/
+void getcode(struct node* root, char c, string code) {                 
 	if (root != NULL) {
 		if (root->Lptr != NULL) {
 			getcode(root->Lptr, c, code+"0");
@@ -124,7 +126,8 @@ int main(){
 	build(capacity,order);
 	huff(capacity);
 	string encode;
-	for (int i = capacity-1; i >= 0; i--) {                           /*Assign Huffman code to correspond node*/
+	/*Assign Huffman code to correspond node*/
+	for (int i = capacity-1; i >= 0; i--) {                           
 		getcode(TreeList[2 * capacity - 2], TreeList[i]->word, encode);
 		TreeList[i]->code = temp;
 		output << TreeList[i]->word << " " << TreeList[i]->code << endl;
