@@ -1,6 +1,6 @@
 # HuffmanCoding
 Implement huffman code algorithm for loseless data compression.
-
+<hr/>
 Visualisation of the use of Huffman coding to encode the message 
 <p align="Left">
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Huffman_coding_visualisation.svg" width = 500>
